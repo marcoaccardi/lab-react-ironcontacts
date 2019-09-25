@@ -3,9 +3,11 @@ import Contacts from "./Contacts";
 import profiles from "./contacts.json";
 import "./App.css";
 
+// let fiveProfiles = profiles.slice(0, 5);
 class App extends Component {
   state = {
     contacts: profiles.slice(0, 5)
+    // contacts: fiveProfiles
   };
 
   handleRandomContact = () => {
@@ -19,10 +21,39 @@ class App extends Component {
     });
   };
 
+  handleSortName = () => {
+    const sortName = [...this.state.contacts].sort((a, b) => {
+      return a.name.localeCompare(b.name - a.name);
+    });
+    this.setState({ contacts: sortName });
+    // const compare = (a, b) => {
+    //   if (a.name < b.name) {
+    //     return -1;
+    //   }
+    //   if (a.name > b.name) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // };
+
+    // this.setState({
+    //   contacts: fiveProfiles.sort(compare)
+    // });
+  };
+
+  handleSortPop = () => {
+    const sortPop = [...this.state.contacts].sort((a, b) => {
+      return a.popularity - b.popularity;
+    });
+    this.setState({ contacts: sortPop });
+  };
+
   render() {
     return (
       <div>
         <button onClick={this.handleRandomContact}>Add Random Contact</button>
+        <button onClick={this.handleSortName}>Sort by name</button>
+        <button onClick={this.handleSortPop}>Sort by popularity</button>
 
         <table>
           <tbody>
